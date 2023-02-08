@@ -33,6 +33,7 @@ public class User implements Serializable {
     boolean loggedIn;
 
     //Table Relationships for the User Class
+    //Instance Variables - Lists - collections of objects of the same type
 
     //Post list - fetch type eager: information will be gathered immediately after being created
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -44,11 +45,6 @@ public class User implements Serializable {
 
     // Comment List - Need to use FetchType.LAZY to resolve multiple bags exception
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Comment> comments;
-
-    //Instance Variables - Lists - collections of objects of the same type
-    private List<Post> posts;
-    private List<Vote> votes;
     private List<Comment> comments;
 
     //****METHODS****
