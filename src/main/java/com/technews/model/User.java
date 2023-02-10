@@ -50,7 +50,7 @@ public class User implements Serializable {
     //****METHODS****
     //Constructor method
 
-    public User(Integer id, String username, String email, String password) {
+    public User() {
         this.id = id;
         this.username = username;
         this.email = email;

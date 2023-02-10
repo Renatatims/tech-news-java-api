@@ -52,7 +52,7 @@ public class Post implements Serializable {
     private List<Comment> comments;
 
     //Constructor
-    public Post(Integer id, String title, String postUrl, String userName, int voteCount) {
+    public Post() {
         this.id = id;
         this.title = title;
         this.postUrl = postUrl;

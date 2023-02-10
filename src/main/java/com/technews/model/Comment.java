@@ -24,7 +24,7 @@ public class Comment implements Serializable {
     //METHODS
 
     //Constructor
-    public Comment(Integer id, String commentText, Integer userId, Integer postId) {
+    public Comment() {
         this.id = id;
         this.commentText = commentText;
         this.userId = userId;
