@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<-- Reference to layout decorate -->
+<!-- Reference to layout decorate -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
@@ -8,13 +8,13 @@
 </head>
 
 <body>
-<--Layout: fragment - defines the specific content from this file that will be displayed on layout.html-->
+<!--Layout: fragment - defines the specific content from this file that will be displayed on layout.html-->
 <div layout:fragment="content">
 
   <div th:if="${notice}" class="flash-message">
     <h3>[[${notice}]]</h3>
   </div>
-<--POST request - Th action designates the API route for submitting the form and th object designated that the submitted form fields will go to the user object"
+<!--POST request - Th action designates the API route for submitting the form and th object designated that the submitted form fields will go to the user object"-->
   <form action="#" th:action="@{/users/login}" th:object="${user}" method="post" class="login-form">
     <div>
       <label>email:</label>

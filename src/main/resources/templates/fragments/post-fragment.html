@@ -10,7 +10,7 @@
 
 <article class="post" th:fragment="post-fragment">
   <div class="title">
-    <-- Represents a post object from the database -->
+    <!-- Represents a post object from the database -->
     <a th:href="@{ ${post.postUrl} }" target="_blank">[[${post.title}]]</a>
 
     <div th:if="${#strings.contains(post.postUrl, 'http://')}">
