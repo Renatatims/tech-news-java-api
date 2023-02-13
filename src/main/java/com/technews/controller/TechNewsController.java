@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 //Class-Level annotation Controller
@@ -116,6 +117,21 @@ public class TechNewsController {
             User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
             post.setUserId(sessionUser.getId());
             postRepository.save(post);
+
+            return "redirect:/dashboard";
+        }
+    }
+    //POST - post by ID - check updated posts
+    @PostMapping("/posts/{id}")
+    public String updatePostDashboardPage(@PathVariable int id, @ModelAttribute Post post, Model model, HttpServletRequest request) {
+
+        if (request.getSession(false) == null) {
+            model.addAttribute("user", new User());
+            return "redirect/dashboard";
+        } else {
+            Post tempPost = postRepository.getById(id);
+            tempPost.setTitle(post.getTitle());
+            postRepository.save(tempPost);
 
             return "redirect:/dashboard";
         }
