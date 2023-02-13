@@ -1,5 +1,6 @@
 package com.technews.controller;
 
+import com.technews.model.Comment;
 import com.technews.model.Post;
 import com.technews.model.User;
 import com.technews.repository.CommentRepository;
@@ -134,6 +135,24 @@ public class TechNewsController {
             postRepository.save(tempPost);
 
             return "redirect:/dashboard";
+        }
+    }
+
+    //POST - comments - allows users to comment on posts
+    @PostMapping("/comments")
+    public String createCommentCommentsPage(@ModelAttribute Comment comment, Model model, HttpServletRequest request) {
+
+        if (comment.getCommentText().isEmpty() || comment.getCommentText().equals(null)) {
+            return "redirect:/singlePostEmptyComment/" + comment.getPostId();
+        } else {
+            if (request.getSession(false) != null) {
+                User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+                comment.setUserId(sessionUser.getId());
+                commentRepository.save(comment);
+                return "redirect:/post/" + comment.getPostId();
+            } else {
+                return "login";
+            }
         }
     }
 }
