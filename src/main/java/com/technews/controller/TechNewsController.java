@@ -3,19 +3,19 @@ package com.technews.controller;
 import com.technews.model.Comment;
 import com.technews.model.Post;
 import com.technews.model.User;
+import com.technews.model.Vote;
 import com.technews.repository.CommentRepository;
 import com.technews.repository.PostRepository;
 import com.technews.repository.UserRepository;
 import com.technews.repository.VoteRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 //Class-Level annotation Controller
 @Controller
@@ -174,5 +174,20 @@ public class TechNewsController {
             }
         }
 
+    }
+
+    //PutMapping - posts/upvote - allows users to upvote posts - setVote Count will be incremented by 1
+    @PutMapping("/posts/upvote")
+    public void addVoteCommentsPage(@RequestBody Vote vote, HttpServletRequest request, HttpServletResponse response) {
+
+        if (request.getSession(false) != null) {
+            Post returnPost = null;
+            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+            vote.setUserId(sessionUser.getId());
+            voteRepository.save(vote);
+
+            returnPost = postRepository.getById(vote.getPostId());
+            returnPost.setVoteCount(voteRepository.countVotesByPostId(vote.getPostId()));
+        }
     }
 }
